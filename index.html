@@ -169,7 +169,7 @@ const EP=[440,314],PP=[200,314];
 function mkT(i){const o=TR[i],last=TR.length-1,k=i==0?"Drago":LV[lv].k(i),sg=i==0?Math.min(2,Math.max(lv,stg())):(i==1||i==2)?Math.max(0,stg()-1):stg();let hp=o.hp,at=o.at;if(i==last){hp=[115,152,175][lv];at=[9.5,12.5,15.5][lv]}return{...o,hp,mhp:hp,at,tr:i,k,sg,en:0,th:LV[lv].bg,boss:i==last,sty:i==0?"slash":["star","slash","bolt","slash","bolt","star","dark"][i],...(lv==2&&i==last?{n:k=="Luxy"?"Il Re della Luce":"Il Re dell'Oscurità",bs:k=="Luxy"?"L":"U"}:{})}}
 function tw(k,a,b,ms,cb){const t=performance.now();(function f(){const p=Math.min(1,(performance.now()-t)/ms);A[k]=a+(b-a)*p;if(p<1)requestAnimationFrame(f);else if(cb)cb()})()}
 function fx(X,Y,n,col,sp){for(let i=0;i<n;i++){const a=Math.random()*6.3,v=(Math.random()+.3)*sp;A.fx.push({x:X,y:Y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,c:col})}}
-let NW=0;const SWM=k=>k=="Pyrix"||k=="Glacio"?1:k=="Floran"||k=="Voltix"?2:k=="Aquor"?3:0;
+let NW=0;const SWM=k=>k=="Pyrix"||k=="Glacio"?1:k=="Floran"||k=="Voltix"||k=="Drago"?2:k=="Aquor"?3:0;
 function thrustAtk(w,hit,end){const p=w=="p",d=p?1:-1,sk=p?"sw":"esw",mk=p?"px":"ex",jk=p?"jp":"ejp",vk=p?"sv":"esv",qk=p?"sq":"esq",lk=p?"ln":"eln",
  S3=p?2.5:(E.boss?2.8:2.5),wi=(()=>{NW=2;const im=p?hum(CHR,1,S.sp.ev[0][0],stg(),0,0):hum(E.v,1,E.k,E.sg,0,0);NW=0;return im})(),bb=wbox(wi),L=Math.max(30,(bb[1]-5-bb[0])*S3),
  LG=d*24,B=d*-14,Dl=d*Math.max(70,Math.min(132,Math.abs(EP[0]-PP[0])-30-30-46*S3/2.5-L-24)),gx=(p?PP[0]:EP[0])+Dl;
