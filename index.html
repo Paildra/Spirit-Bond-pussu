@@ -178,7 +178,7 @@ function mkT(i){const o=TR[i],last=TR.length-1,c3=lv==3,k=c3?LV[3].k(i):i==0?"Dr
 function tw(k,a,b,ms,cb){const t=performance.now();(function f(){const p=Math.min(1,(performance.now()-t)/ms);A[k]=a+(b-a)*p;if(p<1)requestAnimationFrame(f);else if(cb)cb()})()}
 function fx(X,Y,n,col,sp){for(let i=0;i<n;i++){const a=Math.random()*6.3,v=(Math.random()+.3)*sp;A.fx.push({x:X,y:Y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,c:col})}}
 const hov=(k,st,n)=>k=="Drago"&&st==2?{s:1.75,y:-66-Math.sin(n/380)*7}:{s:1,y:0};
-let NW=0;const SWM=k=>k=="Pyrix"||k=="Glacio"?1:k=="Floran"||k=="Voltix"||k=="Drago"?2:k=="Aquor"?3:0;
+let NW=0;const SWM=k=>k=="Pyrix"||k=="Glacio"?1:k=="Floran"||k=="Voltix"||k=="Drago"?2:k=="Aquor"?3:k=="Umbrix"?4:0;
 function thrustAtk(w,hit,end){const p=w=="p",d=p?1:-1,sk=p?"sw":"esw",mk=p?"px":"ex",jk=p?"jp":"ejp",vk=p?"sv":"esv",qk=p?"sq":"esq",lk=p?"ln":"eln",
  S3=p?2.5:(E.boss?2.8:2.5),wi=(()=>{NW=2;const im=p?hum(CHR,1,S.sp.ev[0][0],stg(),0,0):hum(E.v,1,E.k,E.sg,0,0);NW=0;return im})(),bb=wbox(wi),L=Math.max(30,(bb[1]-5-bb[0])*S3),
  LG=d*24,B=d*-14,Dl=d*Math.max(70,Math.min(132,Math.abs(EP[0]-PP[0])-30-30-46*S3/2.5-L-24)),gx=(p?PP[0]:EP[0])+Dl;
@@ -220,19 +220,19 @@ function thrustFx(X,Yb,dir,s,col,wi,S3){const pl=dir>0,q=pl?{sy:A.sq,r:A.ln}:{sy
   for(let i=0;i<4;i++){const yy=tipY+(i-1.5)*9;x.globalAlpha=al*.8;x.strokeStyle=i%2?col:"#fff";x.lineWidth=3-i%2;x.beginPath();x.moveTo(tipX-dir*(20+i*12),yy);x.lineTo(tipX+dir*(40+i*10),yy);x.stroke()}
   x.globalAlpha=al;x.fillStyle="#fff";x.beginPath();x.arc(tipX+dir*6,tipY,10,0,7);x.fill();fx(tipX,tipY,2,col,3)}
  x.restore()}
-function jumpSlash(w,hit,end,v){if(v==3)return thrustAtk(w,hit,end);const p=w=="p",jk=p?"jp":"ejp",sk=p?"sw":"esw",mk=p?"px":"ex",vk=p?"sv":"esv",D=p?135:-135,back=()=>{tw(jk,0,1,420);tw(mk,D,0,420,()=>{A[vk]=0;A[sk]=0;A[jk]=0;end()})};A[vk]=v==2?2:1;A[sk]=-1;A[jk]=0;A.jh=v==2?140:95;tw(sk,-1,0,300);
- if(v==2){tw(jk,0,1,660);tw(mk,0,D,660,()=>setTimeout(back,520));setTimeout(()=>tw(sk,0,1,300),350);setTimeout(()=>{hit();tw("sk",16,0,520)},650);return}
+function jumpSlash(w,hit,end,v){if(v==3)return thrustAtk(w,hit,end);const p=w=="p",jk=p?"jp":"ejp",sk=p?"sw":"esw",mk=p?"px":"ex",vk=p?"sv":"esv",D=p?135:-135,back=()=>{tw(jk,0,1,420);tw(mk,D,0,420,()=>{A[vk]=0;A[sk]=0;A[jk]=0;end()})};A[vk]=v==4?4:v==2?2:1;A[sk]=-1;A[jk]=0;A.jh=v==2||v==4?140:95;tw(sk,-1,0,300);
+ if(v==2||v==4){tw(jk,0,1,660);tw(mk,0,D,660,()=>setTimeout(back,520));setTimeout(()=>tw(sk,0,1,300),350);setTimeout(()=>{hit();tw("sk",16,0,520)},650);return}
  tw(jk,0,1,520);tw(mk,0,D,520,()=>{tw(sk,0,1,240);setTimeout(hit,130);setTimeout(back,570)})}
 function wbox(im){if(!im._b){const d=im.getContext("2d").getImageData(0,0,im.width,im.height).data;let mn=99,mx=0;for(let yy=0;yy<im.height;yy++)for(let xx=0;xx<im.width;xx++)if(d[(yy*im.width+xx)*4+3]>40){if(yy<mn)mn=yy;if(yy>mx)mx=yy}im._b=[mn,mx]}return im._b}
-function swordFx(X,Yb,dir,s,col,vt,wi,S3){if(vt==3)return thrustFx(X,Yb,dir,s,col,wi,S3);vt=vt==2;const b=wbox(wi),gy=b[1]-5,L=Math.max(30,(gy-b[0])*S3),px=X+dir*21*S3,py=Yb+(gy-86)*S3,sc=Math.max(0,Math.min(1,s)),e2=vt?sc*sc*(1.6-.6*sc):1-Math.pow(1-sc,3),A0=vt?-2.45:Math.PI,A1=vt?.3:0,th=A0+(A1-A0)*e2,tipAt=a=>[px+dir*L*Math.cos(a),py+L*(vt?1:.16)*Math.sin(a)];
+function swordFx(X,Yb,dir,s,col,vt,wi,S3){if(vt==3)return thrustFx(X,Yb,dir,s,col,wi,S3);const ob=vt==4;vt=vt==2||ob;const b=wbox(wi),gy=b[1]-5,L=Math.max(30,(gy-b[0])*S3),px=X+dir*21*S3,py=Yb+(gy-86)*S3,sc=Math.max(0,Math.min(1,s)),e2=vt?sc*sc*(1.6-.6*sc):1-Math.pow(1-sc,3),A0=ob?-2.7:vt?-2.45:Math.PI,A1=ob?.55:vt?.3:0,th=A0+(A1-A0)*e2,PSI=.45,tipAt=a=>ob?[px+dir*L*(Math.cos(a)*Math.cos(PSI)-.7*Math.sin(a)*Math.sin(PSI)),py+L*(Math.cos(a)*Math.sin(PSI)+.7*Math.sin(a)*Math.cos(PSI))]:[px+dir*L*Math.cos(a),py+L*(vt?1:.16)*Math.sin(a)];
  x.save();x.lineCap="round";x.lineJoin="round";
  if(s>0&&s<1){for(let j=0;j<14;j++){const a0=A0+(th-A0)*j/14,a1=A0+(th-A0)*(j+1)/14,p0=tipAt(a0),p1=tipAt(a1);x.globalAlpha=.15+.75*j/14;x.strokeStyle=col;x.shadowColor=col;x.shadowBlur=20;x.lineWidth=5+20*j/14;x.beginPath();x.moveTo(p0[0],p0[1]);x.lineTo(p1[0],p1[1]);x.stroke();x.strokeStyle="#fff";x.shadowBlur=0;x.lineWidth=2+4*j/14;x.beginPath();x.moveTo(p0[0],p0[1]);x.lineTo(p1[0],p1[1]);x.stroke()}
   x.globalAlpha=.85*Math.sin(sc*Math.PI);x.strokeStyle="#fff";x.shadowColor=col;x.shadowBlur=24;x.lineWidth=5;x.beginPath();
-  if(vt){const sx=px+dir*(L*Math.cos(A1)+22);x.moveTo(sx,py-120);x.lineTo(sx,py+75)}else{x.moveTo(px+dir*20,py+8);x.lineTo(px+dir*(L+90),py+8)}
+  if(ob){const sx=px+dir*(L*.62+30);x.moveTo(sx-dir*60,py-125);x.lineTo(sx+dir*60,py+80)}else if(vt){const sx=px+dir*(L*Math.cos(A1)+22);x.moveTo(sx,py-120);x.lineTo(sx,py+75)}else{x.moveTo(px+dir*20,py+8);x.lineTo(px+dir*(L+90),py+8)}
   x.stroke();fx(tipAt(th)[0],tipAt(th)[1],1,col,3)}
  x.globalAlpha=1;x.shadowBlur=0;let t=tipAt(th);if(s<0){const u=1+s,t0=tipAt(A0),up=[px,py-L];t=[up[0]+(t0[0]-up[0])*u,up[1]+(t0[1]-up[1])*u]}
  const Vx=t[0]-px,Vy=t[1]-py,len=Math.max(6,Math.hypot(Vx,Vy));
- x.translate(px,py);x.rotate(Math.atan2(Vy,Vx)+Math.PI/2);x.scale(1,len/L);x.imageSmoothingEnabled=false;x.drawImage(wi,-21*S3,-gy*S3,84*S3,96*S3);x.restore()}
+ x.translate(px,py);x.rotate(Math.atan2(Vy,Vx)+Math.PI/2);x.scale(1,ob?1:len/L);x.imageSmoothingEnabled=false;x.drawImage(wi,-21*S3,-gy*S3,84*S3,96*S3);x.restore()}
 function hitE(d,big){tw("ef",1,0,450);tw("sk",big?16:7,0,380);A.dm.push({x:EP[0],y:EP[1]-70,t:"-"+d,l:1,c:"#fff"});fx(EP[0],EP[1],big?34:14,big?elc():"#ffd84a",big?9:6)}
 function hitP(d,c){tw("pf",1,0,450);tw("sk",8,0,380);A.dm.push({x:PP[0],y:PP[1]-70,t:"-"+d,l:1,c:"#ff5a5a"});fx(PP[0],PP[1],c?30:14,c||"#ff6a4a",c?9:6)}
 function act(k){if(busy)return;busy=1;S.gd=0;$("cmd").innerHTML="";
